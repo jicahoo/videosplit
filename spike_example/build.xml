@@ -1,3 +1,63 @@
-<!-ant build script-->
-<a>
-</a>
+<?xml version="1.0" standalone="yes"?>
+
+<project name="videotoimage" basedir="." default="usage">
+
+    <!-- Use ant-contrib -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath path="${basedir}/../thirdparty/ant-contrib/ant-contrib-1.0b3.jar"/>
+    </taskdef>
+
+    <path id="classpath">
+        <fileset dir="${basedir}/../thirdparty/gphd_lib/gphd" includes="**/*.jar"/>
+    </path>
+
+
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="build.classes.dir" value="${basedir}/output"/>
+    <property name="dist.dir" value="${basedir}/dist"/>
+
+
+    <target name="all" depends="clean,compile,jar">
+    </target>
+
+
+    <target name="compile">
+        <mkdir dir="${build.classes.dir}"/>
+
+        <javac srcdir="${src.dir}"
+            destdir="${build.classes.dir}"
+            debug="on"
+            deprecation="on"
+            classpathref="classpath"
+            optimize="off">
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist.dir}"/>
+        <jar destfile="${basedir}/dist/mapperonly.jar"
+            basedir="${build.classes.dir}"
+            includes="**"
+            >
+            <manifest>
+                <attribute name="Main-Class"
+                    value="com.edison.spike.mapperonly.MapperOnly"/>
+            </manifest>
+        </jar>
+    </target>
+
+
+    <!-- 
+    ****************************************************************************
+    Target: clean (clean all the files)
+    ****************************************************************************
+    -->
+    <target name="clean" description="clean all the files">
+        <delete dir="${output.dir}"/>
+        <delete dir="${bar.output.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${bar.dist.dir}"/>
+    </target>
+
+
+</project>
