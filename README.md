@@ -1,7 +1,7 @@
 #video split using hadoop
 
 ##This prject will try to split the video to images. The basic ideas is 
-1. It is mapper only job;
+1. It is mapper only job. And it is runnable.
 
 2. About input, convert normal video fomrat into SequenceFile format in which the key is Text and the value is binary data of video
 
